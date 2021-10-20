@@ -62,7 +62,7 @@ jobs:
       run: chmod +x repo/gradlew
 
     - name: Build APK
-      run: ./repo/gradlew assembleRelease
+      run: cd repo && ./gradlew assembleRelease && cd ..
 
     - name: Upload to release
       uses: svenstaro/upload-release-action@v2

@@ -55,7 +55,7 @@ jobs:
       run: chmod +x repo/gradlew
 
     - name: Build APK
-      run: cd repo && ./gradlew assembleDebug && cd .. && ls
+      run: cd repo && ./gradlew assembleDebug
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -78,7 +78,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        keep_latest: 3
+        keep_latest: 1
         delete_tags: true
 
     - name: Delete workflow runs

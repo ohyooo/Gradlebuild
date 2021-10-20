@@ -55,7 +55,7 @@ jobs:
       run: chmod +x repo/gradlew
 
     - name: Build APK
-      run: cd repo && ./gradlew assembleRelease && cd .. && ls
+      run: cd repo && ./gradlew assembleDebug && cd .. && ls
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0

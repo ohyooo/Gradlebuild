@@ -12,6 +12,10 @@ on:
         description: 'git repo'
         required: true
         default: ''
+      module:
+        description: 'module'
+        required: true
+        default: 'app'
 
 jobs:
   build:
@@ -57,11 +61,14 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x repo/gradlew
 
+    - name: Build APK
+      run: ./gradlew assembleRelease
+
     - name: Upload to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: app/build/outputs/apk/release/*.apk
+        file: /repo/${{ github.event.inputs.module }}/build/outputs/apk/release/*.apk
         tag: ${{ github.ref }}_${{ steps.time.outputs.time }}
         overwrite: true
         file_glob: true

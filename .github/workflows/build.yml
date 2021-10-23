@@ -67,7 +67,8 @@ jobs:
     - name: Upload files to Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ github.event.inputs.repo }}_${{ github.ref }}_${{ steps.time.outputs.time }}
+        name: |
+          echo ${{ github.event.inputs.repo }}_${{ github.ref }}_${{ steps.time.outputs.time }} | sed 's/\//_/g'
         path: ./repo/${{ github.event.inputs.module }}/build/outputs/apk/debug/
 
     - name: Remove old Releases

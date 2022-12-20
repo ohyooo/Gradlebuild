@@ -54,15 +54,15 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x repo/gradlew
 
-    - name: Build APK
-      run: cd repo && ./gradlew assembleDebug
-
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == '1') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+    - name: Build APK
+      run: cd repo && ./gradlew assembleDebug
 
     - name: Upload files to Artifacts
       uses: actions/upload-artifact@v2

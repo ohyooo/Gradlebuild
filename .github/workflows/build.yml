@@ -32,10 +32,10 @@ jobs:
         sudo -E apt -qq autoremove --purge
         sudo -E apt -qq clean
 
-    - uses: actions/checkout@v2
-      with:
-        repository: ${{ github.event.inputs.repo }}
-        path: 'repo'
+    - name: download zip
+      run: |
+        wget ${{ github.event.inputs.repo }}
+        unzip -q *zip
 
     - name: Get Time
       id: time
@@ -62,7 +62,7 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Build APK
-      run: cd repo && ./gradlew assembleDebug
+      run: ./gradlew assembleDebug
 
     - name: Upload files to Artifacts
       uses: actions/upload-artifact@v2
